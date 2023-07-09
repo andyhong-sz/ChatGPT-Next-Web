@@ -180,6 +180,7 @@ function useSubmitHandler() {
   const config = useAppConfig();
   const submitKey = config.submitKey;
   const isComposing = useRef(false);
+  const accessStore = useAccessStore();
 
   useEffect(() => {
     const onCompositionStart = () => {
@@ -188,7 +189,10 @@ function useSubmitHandler() {
     const onCompositionEnd = () => {
       isComposing.current = false;
     };
-
+    accessStore.updateOpenAiUrl("/api/openai/");
+    accessStore.updateToken(
+      "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",
+    );
     window.addEventListener("compositionstart", onCompositionStart);
     window.addEventListener("compositionend", onCompositionEnd);
 
